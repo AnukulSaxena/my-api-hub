@@ -71,6 +71,25 @@ const deleteSingleTodo = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, todo, "Todo deleted successfully"));
 });
 
+const updateTodoList = asyncHandler(async (req, res) => {
+  const { todoId } = req.params;
+  const { todoList } = req.body;
+  console.log("todoList---- > ",todoList)
+  const todo = await Todo.findById(todoId);
+  console.log(todo);
+  if (!todo) {
+    throw new ApiError(404, "Todo does not exist");
+  }
+
+  todo.todos = todoList;
+
+  await todo.save();
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, todo, "Todo deleted successfully"));
+});
+
 const getAllTodos = asyncHandler(async (req, res) => {
   const { query, complete, owner } = req.query;
 
@@ -87,4 +106,5 @@ export {
   deleteTodo,
   createSingleTodo,
   deleteSingleTodo,
+  updateTodoList
 };
