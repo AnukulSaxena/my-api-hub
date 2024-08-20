@@ -6,6 +6,7 @@ import {
   getAllTodos,
   createSingleTodo,
   deleteSingleTodo,
+  updateTodoList,
   //   getTodoById,
   //   toggleTodoDoneStatus,
   //   updateTodo,
@@ -44,7 +45,8 @@ router
     queryValidator("index"),
     validate,
     deleteSingleTodo
-  );
+  )
+  .put(updateTodoList);
 
 router
   .route("/:todoId")
